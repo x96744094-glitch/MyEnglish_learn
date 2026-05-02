@@ -2,8 +2,23 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'https://myenglishlearn-production-2db8.up.railway.app/api',
-  timeout: 10000,
+  timeout: 30000,
 });
+
+// 自動重試一次（處理 Railway 冷啟動）
+api.interceptors.response.use(
+  res => res,
+  async err => {
+    const config = err.config;
+    if (!config || config._retried) return Promise.reject(err);
+    if (err.code === 'ECONNABORTED' || !err.response) {
+      config._retried = true;
+      await new Promise(r => setTimeout(r, 3000));
+      return api(config);
+    }
+    return Promise.reject(err);
+  }
+);
 
 export const checkHealth = () => api.get('/health').then(r => r.data);
 
