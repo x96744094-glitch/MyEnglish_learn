@@ -10,7 +10,14 @@ api.interceptors.response.use(
   res => res,
   async err => {
     const config = err.config;
-    if (!config || config._retried) return Promise.reject(err);
+    if (!config || config._retried) {
+      // 整理錯誤訊息
+      const msg =
+        err.code === 'ECONNABORTED' ? '連線逾時，伺服器可能正在啟動中，請稍後重試。' :
+        !err.response ? '無法連線到伺服器，請確認網路或稍後再試。' :
+        err.response?.data?.error || `伺服器錯誤 (${err.response?.status})`;
+      return Promise.reject(new Error(msg));
+    }
     if (err.code === 'ECONNABORTED' || !err.response) {
       config._retried = true;
       await new Promise(r => setTimeout(r, 3000));
