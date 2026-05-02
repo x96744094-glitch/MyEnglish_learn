@@ -1,47 +1,34 @@
-const fs = require('fs');
-const path = require('path');
+const Phrase = require('../models/Phrase');
 
-const dataPath = path.join(__dirname, '../data/phrases.json');
-
-function readData() { return JSON.parse(fs.readFileSync(dataPath, 'utf8')); }
-function writeData(data) { fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); }
-
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    let items = readData();
-    const { level, type } = req.query;
-    if (level) items = items.filter(i => i.level === level);
-    if (type) items = items.filter(i => i.type === type);
+    const filter = {};
+    if (req.query.level) filter.level = req.query.level;
+    if (req.query.type) filter.type = req.query.type;
+    const items = await Phrase.find(filter).lean();
     res.json(items);
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.getById = (req, res) => {
+exports.getById = async (req, res) => {
   try {
-    const items = readData();
-    const item = items.find(i => i.id === req.params.id);
+    const item = await Phrase.findById(req.params.id).lean();
     if (!item) return res.status(404).json({ error: 'Not found' });
     res.json(item);
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const items = readData();
-    const newItem = { id: `phrase_${Date.now()}`, ...req.body };
-    items.push(newItem);
-    writeData(items);
-    res.status(201).json(newItem);
+    const item = await Phrase.create(req.body);
+    res.status(201).json(item);
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   try {
-    const items = readData();
-    const index = items.findIndex(i => i.id === req.params.id);
-    if (index === -1) return res.status(404).json({ error: 'Not found' });
-    items[index] = { ...items[index], ...req.body };
-    writeData(items);
-    res.json(items[index]);
+    const item = await Phrase.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!item) return res.status(404).json({ error: 'Not found' });
+    res.json(item);
   } catch (err) { res.status(500).json({ error: err.message }); }
 };

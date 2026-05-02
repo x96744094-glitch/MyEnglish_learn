@@ -1,90 +1,67 @@
-const fs = require('fs');
-const path = require('path');
+const Vocabulary = require('../models/Vocabulary');
 
-const dataPath = path.join(__dirname, '../data/vocabulary.json');
-
-function readData() {
-  return JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-}
-
-function writeData(data) {
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-}
-
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    let words = readData();
     const { level, tag, page = 1, limit = 20 } = req.query;
-    if (level) words = words.filter(w => w.level === level);
-    if (tag) words = words.filter(w => w.tags && w.tags.includes(tag));
-    const start = (page - 1) * limit;
-    const paginated = words.slice(start, start + parseInt(limit));
-    res.json({ total: words.length, page: parseInt(page), data: paginated });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const filter = {};
+    if (level) filter.level = level;
+    if (tag) filter.tags = tag;
+    const skip = (page - 1) * parseInt(limit);
+    const [data, total] = await Promise.all([
+      Vocabulary.find(filter).skip(skip).limit(parseInt(limit)).lean(),
+      Vocabulary.countDocuments(filter),
+    ]);
+    res.json({ total, page: parseInt(page), data });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.getById = (req, res) => {
+exports.getById = async (req, res) => {
   try {
-    const words = readData();
-    const word = words.find(w => w.id === req.params.id);
+    const word = await Vocabulary.findById(req.params.id).lean();
     if (!word) return res.status(404).json({ error: 'Word not found' });
     res.json(word);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.search = (req, res) => {
+exports.search = async (req, res) => {
   try {
     const { q } = req.query;
     if (!q) return res.json([]);
-    const words = readData();
-    const results = words.filter(w =>
-      w.word.toLowerCase().includes(q.toLowerCase()) ||
-      w.translation.includes(q)
-    );
+    const results = await Vocabulary.find({
+      $or: [
+        { word: { $regex: q, $options: 'i' } },
+        { translation: { $regex: q, $options: 'i' } },
+      ]
+    }).limit(30).lean();
     res.json(results);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.getStats = (req, res) => {
+exports.getStats = async (req, res) => {
   try {
-    const words = readData();
-    const byLevel = words.reduce((acc, w) => {
-      acc[w.level] = (acc[w.level] || 0) + 1;
+    const total = await Vocabulary.countDocuments();
+    const byLevelData = await Vocabulary.aggregate([
+      { $group: { _id: '$level', count: { $sum: 1 } } }
+    ]);
+    const byLevel = byLevelData.reduce((acc, item) => {
+      acc[item._id] = item.count;
       return acc;
     }, {});
-    res.json({ total: words.length, byLevel });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    res.json({ total, byLevel });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const words = readData();
-    const newWord = { id: `word_${Date.now()}`, ...req.body };
-    words.push(newWord);
-    writeData(words);
-    res.status(201).json(newWord);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const word = await Vocabulary.create(req.body);
+    res.status(201).json(word);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   try {
-    const words = readData();
-    const index = words.findIndex(w => w.id === req.params.id);
-    if (index === -1) return res.status(404).json({ error: 'Word not found' });
-    words[index] = { ...words[index], ...req.body };
-    writeData(words);
-    res.json(words[index]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const word = await Vocabulary.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!word) return res.status(404).json({ error: 'Word not found' });
+    res.json(word);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };

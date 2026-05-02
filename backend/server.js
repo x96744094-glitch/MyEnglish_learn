@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const vocabularyRoutes = require('./routes/vocabulary');
 const grammarRoutes = require('./routes/grammar');
 const phrasesRoutes = require('./routes/phrases');
@@ -12,8 +13,19 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 
+// MongoDB 連線
+const MONGODB_URI = process.env.MONGODB_URI;
+if (MONGODB_URI) {
+  mongoose.connect(MONGODB_URI)
+    .then(() => console.log('✅ MongoDB 連線成功'))
+    .catch(err => console.error('❌ MongoDB 連線失敗:', err.message));
+} else {
+  console.warn('⚠️  未設定 MONGODB_URI 環境變數');
+}
+
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'English Learning API is running', timestamp: new Date().toISOString() });
+  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  res.json({ status: 'ok', message: 'English Learning API is running', db: dbStatus, timestamp: new Date().toISOString() });
 });
 
 app.use('/api/vocabulary', vocabularyRoutes);
@@ -32,6 +44,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

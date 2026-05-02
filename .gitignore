@@ -8,8 +8,10 @@ frontend/.env.local
 frontend/.env.production
 
 # Environment files (保留 .env 範本但忽略機密)
+.env
 .env.local
 .env.*.local
+backend/.env
 
 # Logs
 *.log

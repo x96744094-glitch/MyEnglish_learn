@@ -1,12 +1,5 @@
-const fs = require('fs');
-const path = require('path');
-
-const vocabPath = path.join(__dirname, '../data/vocabulary.json');
-const quizzesPath = path.join(__dirname, '../data/quizzes.json');
-
-function readVocab() { return JSON.parse(fs.readFileSync(vocabPath, 'utf8')); }
-function readQuizzes() { return JSON.parse(fs.readFileSync(quizzesPath, 'utf8')); }
-function writeQuizzes(data) { fs.writeFileSync(quizzesPath, JSON.stringify(data, null, 2)); }
+const Vocabulary = require('../models/Vocabulary');
+const Quiz = require('../models/Quiz');
 
 function shuffle(arr) {
   const a = [...arr];
@@ -17,42 +10,35 @@ function shuffle(arr) {
   return a;
 }
 
-exports.generate = (req, res) => {
+exports.generate = async (req, res) => {
   try {
     const { level = 'A1', count = 10 } = req.body;
-    const vocab = readVocab();
-    const levelWords = vocab.filter(w => w.level === level);
-    const otherWords = vocab.filter(w => w.level !== level);
-
+    const levelWords = await Vocabulary.find({ level }).lean();
     if (levelWords.length < 4) {
       return res.status(400).json({ error: 'Not enough words for this level' });
     }
-
-    const selected = shuffle(levelWords).slice(0, Math.min(count, levelWords.length));
+    const allTranslations = await Vocabulary.find({}, 'translation').lean();
+    const selected = shuffle(levelWords).slice(0, Math.min(parseInt(count), levelWords.length));
     const questions = selected.map(word => {
       const distractors = shuffle(
-        vocab.filter(w => w.id !== word.id).map(w => w.translation)
+        allTranslations.filter(w => w._id.toString() !== word._id.toString()).map(w => w.translation)
       ).slice(0, 3);
       const options = shuffle([word.translation, ...distractors]);
       return {
-        id: word.id,
+        id: word._id,
         word: word.word,
         pronunciation: word.pronunciation,
         options,
-        correctAnswer: word.translation
+        correctAnswer: word.translation,
       };
     });
-
-    const quizId = `quiz_${Date.now()}`;
-    res.json({ quizId, level, questions });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    res.json({ quizId: `quiz_${Date.now()}`, level, questions });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.submit = (req, res) => {
+exports.submit = async (req, res) => {
   try {
-    const { userId, quizId, level, answers } = req.body;
+    const { userId, level, answers } = req.body;
     let correct = 0;
     const details = answers.map(a => {
       const isCorrect = a.userAnswer === a.correctAnswer;
@@ -60,42 +46,21 @@ exports.submit = (req, res) => {
       return { ...a, isCorrect };
     });
     const score = Math.round((correct / answers.length) * 100);
-
-    const quizzes = readQuizzes();
-    const result = {
-      quizId: quizId || `quiz_${Date.now()}`,
-      userId,
-      level,
-      score,
-      correct,
-      total: answers.length,
-      details,
-      date: new Date().toISOString()
-    };
-    quizzes.push(result);
-    writeQuizzes(quizzes);
+    await Quiz.create({ quizId: `quiz_${Date.now()}`, userId, level, score, correct, total: answers.length, details });
 
     let recommendation = null;
-    if (score >= 80 && level !== 'B2') {
-      const levels = ['A1', 'A2', 'B1', 'B2'];
-      const next = levels[levels.indexOf(level) + 1];
-      recommendation = { message: `Great job! Consider trying ${next} level.`, nextLevel: next };
-    } else if (score < 50) {
-      recommendation = { message: 'Keep practicing at this level!', nextLevel: level };
-    }
+    const levels = ['A1', 'A2', 'B1', 'B2'];
+    const idx = levels.indexOf(level);
+    if (score >= 80 && idx < 3) recommendation = { message: `很棒！可以嘗試 ${levels[idx + 1]} 等級了！`, nextLevel: levels[idx + 1] };
+    else if (score < 50) recommendation = { message: '繼續練習這個等級！', nextLevel: level };
 
     res.json({ score, correct, total: answers.length, details, recommendation });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
 
-exports.getHistory = (req, res) => {
+exports.getHistory = async (req, res) => {
   try {
-    const quizzes = readQuizzes();
-    const history = quizzes.filter(q => q.userId === req.params.userId);
+    const history = await Quiz.find({ userId: req.params.userId }).sort({ createdAt: -1 }).limit(50).lean();
     res.json(history);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 };
