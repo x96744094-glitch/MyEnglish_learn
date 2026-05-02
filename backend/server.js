@@ -14,6 +14,9 @@ const MONGODB_URI = process.env.MONGODB_URI;
 app.use(cors());
 app.use(express.json());
 
+// 讓 Mongoose 的 buffer 等待最多 60 秒
+mongoose.set('bufferTimeoutMS', 60000);
+
 // ---- 路由 ----
 app.get('/api/health', (req, res) => {
   const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
@@ -35,26 +38,22 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// ---- 啟動：先連 MongoDB，再開 HTTP ----
-async function main() {
-  if (!MONGODB_URI) {
-    console.error('❌ 未設定 MONGODB_URI，請在 Railway Variables 新增此環境變數');
-    process.exit(1);
-  }
+// ---- 先綁定 port（Railway 需要），背景連 MongoDB ----
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
 
-  console.log('⏳ 正在連線 MongoDB...');
-  await mongoose.connect(MONGODB_URI, {
+if (!MONGODB_URI) {
+  console.error('❌ 未設定 MONGODB_URI');
+} else {
+  mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
+    bufferCommands: true,
+    // 查詢最多等 60 秒讓 MongoDB 連線完成
   });
-  console.log('✅ MongoDB 連線成功');
 
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-  });
+  mongoose.connection.on('connected', () => console.log('✅ MongoDB 連線成功'));
+  mongoose.connection.on('error', err => console.error('❌ MongoDB 錯誤:', err.message));
+  mongoose.connection.on('disconnected', () => console.warn('⚠️  MongoDB 斷線，嘗試重連...'));
 }
-
-main().catch(err => {
-  console.error('❌ 啟動失敗:', err.message);
-  process.exit(1);
-});
