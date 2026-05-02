@@ -13,14 +13,25 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB 連線
+// MongoDB 連線後才啟動 server
 const MONGODB_URI = process.env.MONGODB_URI;
-if (MONGODB_URI) {
-  mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 10000 })
-    .then(() => console.log('✅ MongoDB 連線成功'))
-    .catch(err => console.error('❌ MongoDB 連線失敗:', err.message));
-} else {
-  console.warn('⚠️  未設定 MONGODB_URI 環境變數，請在 Railway Variables 設定');
+
+async function startServer() {
+  if (MONGODB_URI) {
+    try {
+      await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 15000 });
+      console.log('✅ MongoDB 連線成功');
+    } catch (err) {
+      console.error('❌ MongoDB 連線失敗:', err.message);
+      // 連線失敗仍啟動，但 DB 相關路由會回傳 503
+    }
+  } else {
+    console.warn('⚠️  未設定 MONGODB_URI 環境變數');
+  }
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
 }
 
 app.get('/api/health', (req, res) => {
@@ -52,6 +63,4 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+startServer();
