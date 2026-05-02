@@ -15,9 +15,7 @@ app.use(express.json());
 
 // MongoDB 連線
 const MONGODB_URI = process.env.MONGODB_URI;
-console.log('🔍 MONGODB_URI 是否存在:', !!MONGODB_URI);
 if (MONGODB_URI) {
-  console.log('🔍 連線字串前綴:', MONGODB_URI.substring(0, 30) + '...');
   mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 10000 })
     .then(() => console.log('✅ MongoDB 連線成功'))
     .catch(err => console.error('❌ MongoDB 連線失敗:', err.message));
