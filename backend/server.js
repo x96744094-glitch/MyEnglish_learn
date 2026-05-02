@@ -39,15 +39,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'English Learning API is running', db: dbStatus, timestamp: new Date().toISOString() });
 });
 
-// 檢查 DB 連線狀態的 middleware
-app.use('/api', (req, res, next) => {
-  if (req.path === '/health') return next();
-  if (mongoose.connection.readyState !== 1) {
-    return res.status(503).json({ error: '資料庫未連線，請稍後再試。', db: 'disconnected' });
-  }
-  next();
-});
-
 app.use('/api/vocabulary', vocabularyRoutes);
 app.use('/api/grammar', grammarRoutes);
 app.use('/api/phrases', phrasesRoutes);
