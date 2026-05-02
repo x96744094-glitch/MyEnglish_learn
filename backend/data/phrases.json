@@ -1,0 +1,122 @@
+[
+  {
+    "id": "phrase_001",
+    "phrase": "break a leg",
+    "translation": "祝你好運",
+    "type": "idiom",
+    "usage": "劇場用語，在表演前祝人好運",
+    "examples": [
+      { "sentence": "Break a leg on your performance tonight!", "translation": "祝你今晚的表演好運！" }
+    ],
+    "level": "B1",
+    "tags": ["idiom", "encouragement"]
+  },
+  {
+    "id": "phrase_002",
+    "phrase": "hit the nail on the head",
+    "translation": "說得完全正確",
+    "type": "idiom",
+    "usage": "形容某人說的話或做的事完全正確",
+    "examples": [
+      { "sentence": "You hit the nail on the head with that analysis.", "translation": "你的分析說得完全正確。" }
+    ],
+    "level": "B2",
+    "tags": ["idiom", "accuracy"]
+  },
+  {
+    "id": "phrase_003",
+    "phrase": "keep in touch",
+    "translation": "保持聯繫",
+    "type": "phrasal_verb",
+    "usage": "分開後仍保持通訊聯繫",
+    "examples": [
+      { "sentence": "Let's keep in touch after you move.", "translation": "你搬走之後，讓我們保持聯繫。" }
+    ],
+    "level": "A2",
+    "tags": ["communication", "relationship"]
+  },
+  {
+    "id": "phrase_004",
+    "phrase": "under the weather",
+    "translation": "身體不舒服",
+    "type": "idiom",
+    "usage": "感覺身體不好或生病",
+    "examples": [
+      { "sentence": "I'm feeling a bit under the weather today.", "translation": "我今天感覺有點不舒服。" }
+    ],
+    "level": "B1",
+    "tags": ["health", "idiom"]
+  },
+  {
+    "id": "phrase_005",
+    "phrase": "on the ball",
+    "translation": "機靈的，警覺的",
+    "type": "idiom",
+    "usage": "形容某人思維敏銳，做事積極",
+    "examples": [
+      { "sentence": "The new employee is really on the ball.", "translation": "這位新員工真的很機靈。" }
+    ],
+    "level": "B2",
+    "tags": ["idiom", "work", "personality"]
+  },
+  {
+    "id": "phrase_006",
+    "phrase": "give it a shot",
+    "translation": "嘗試一下",
+    "type": "colloquial",
+    "usage": "鼓勵某人嘗試做某件事",
+    "examples": [
+      { "sentence": "Why don't you give it a shot?", "translation": "你為什麼不嘗試一下呢？" }
+    ],
+    "level": "A2",
+    "tags": ["encouragement", "colloquial"]
+  },
+  {
+    "id": "phrase_007",
+    "phrase": "cut to the chase",
+    "translation": "說重點",
+    "type": "idiom",
+    "usage": "省略不必要的細節，直接說重點",
+    "examples": [
+      { "sentence": "Let's cut to the chase — what do you want?", "translation": "讓我們說重點 — 你想要什麼？" }
+    ],
+    "level": "B1",
+    "tags": ["communication", "idiom"]
+  },
+  {
+    "id": "phrase_008",
+    "phrase": "bite the bullet",
+    "translation": "忍受痛苦，硬撐",
+    "type": "idiom",
+    "usage": "忍受困難或不愉快的情況",
+    "examples": [
+      { "sentence": "I just had to bite the bullet and pay the fine.", "translation": "我只好忍痛繳罰款。" }
+    ],
+    "level": "B2",
+    "tags": ["idiom", "perseverance"]
+  },
+  {
+    "id": "phrase_009",
+    "phrase": "hang in there",
+    "translation": "撐住，堅持下去",
+    "type": "colloquial",
+    "usage": "鼓勵某人在困難時期繼續努力",
+    "examples": [
+      { "sentence": "Things will get better. Hang in there!", "translation": "情況會好轉的。撐住！" }
+    ],
+    "level": "A2",
+    "tags": ["encouragement", "motivation"]
+  },
+  {
+    "id": "phrase_010",
+    "phrase": "once in a blue moon",
+    "translation": "千載難逢，很少發生",
+    "type": "idiom",
+    "usage": "形容非常罕見的事情",
+    "examples": [
+      { "sentence": "She visits us once in a blue moon.", "translation": "她很少來看我們。" }
+    ],
+    "level": "B1",
+    "tags": ["idiom", "frequency"]
+  }
+]

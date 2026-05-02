@@ -1,0 +1,170 @@
+[
+  {
+    "id": "word_001",
+    "word": "hello",
+    "pronunciation": "/həˈloʊ/",
+    "partOfSpeech": "exclamation",
+    "translation": "你好",
+    "explanation": "Used as a greeting or to begin a phone conversation.",
+    "examples": [
+      { "sentence": "Hello! How are you today?", "translation": "你好！你今天怎麼樣？" },
+      { "sentence": "She said hello to everyone in the room.", "translation": "她向房間裡的每個人打招呼。" }
+    ],
+    "level": "A1",
+    "tags": ["greeting", "basic"]
+  },
+  {
+    "id": "word_002",
+    "word": "book",
+    "pronunciation": "/bʊk/",
+    "partOfSpeech": "noun",
+    "translation": "書",
+    "explanation": "A written or printed work consisting of pages glued or sewn together along one side.",
+    "examples": [
+      { "sentence": "I read a book every week.", "translation": "我每週讀一本書。" },
+      { "sentence": "The library has thousands of books.", "translation": "圖書館有數千本書。" }
+    ],
+    "level": "A1",
+    "tags": ["education", "reading"]
+  },
+  {
+    "id": "word_003",
+    "word": "travel",
+    "pronunciation": "/ˈtrævəl/",
+    "partOfSpeech": "verb",
+    "translation": "旅行",
+    "explanation": "To make a journey, typically of some length.",
+    "examples": [
+      { "sentence": "I love to travel to new countries.", "translation": "我喜歡去新的國家旅行。" },
+      { "sentence": "She travels for work every month.", "translation": "她每個月出差旅行。" }
+    ],
+    "level": "A2",
+    "tags": ["activity", "movement"]
+  },
+  {
+    "id": "word_004",
+    "word": "ambitious",
+    "pronunciation": "/æmˈbɪʃəs/",
+    "partOfSpeech": "adjective",
+    "translation": "有雄心的",
+    "explanation": "Having a strong desire and determination to succeed.",
+    "examples": [
+      { "sentence": "She is an ambitious young professional.", "translation": "她是一個有雄心的年輕職業人士。" },
+      { "sentence": "His ambitious plan impressed everyone.", "translation": "他雄心勃勃的計劃讓所有人印象深刻。" }
+    ],
+    "level": "B1",
+    "tags": ["personality", "character"]
+  },
+  {
+    "id": "word_005",
+    "word": "serendipity",
+    "pronunciation": "/ˌserənˈdɪpɪti/",
+    "partOfSpeech": "noun",
+    "translation": "意外發現美好事物的運氣",
+    "explanation": "The occurrence of events by chance in a happy or beneficial way.",
+    "examples": [
+      { "sentence": "Finding this restaurant was pure serendipity.", "translation": "發現這家餐廳純粹是巧合。" },
+      { "sentence": "Their meeting was a wonderful serendipity.", "translation": "他們的相遇是美妙的意外。" }
+    ],
+    "level": "B2",
+    "tags": ["luck", "fate", "discovery"]
+  },
+  {
+    "id": "word_006",
+    "word": "understand",
+    "pronunciation": "/ˌʌndəˈstænd/",
+    "partOfSpeech": "verb",
+    "translation": "理解",
+    "explanation": "To perceive the intended meaning of words, a language, or a speaker.",
+    "examples": [
+      { "sentence": "Do you understand the question?", "translation": "你理解這個問題嗎？" },
+      { "sentence": "I finally understood what she meant.", "translation": "我終於明白她的意思了。" }
+    ],
+    "level": "A1",
+    "tags": ["communication", "cognitive"]
+  },
+  {
+    "id": "word_007",
+    "word": "opportunity",
+    "pronunciation": "/ˌɒpəˈtjuːnɪti/",
+    "partOfSpeech": "noun",
+    "translation": "機會",
+    "explanation": "A time or set of circumstances that makes it possible to do something.",
+    "examples": [
+      { "sentence": "This job is a great opportunity.", "translation": "這份工作是個很好的機會。" },
+      { "sentence": "Don't miss this opportunity.", "translation": "不要錯過這個機會。" }
+    ],
+    "level": "A2",
+    "tags": ["career", "chance"]
+  },
+  {
+    "id": "word_008",
+    "word": "perseverance",
+    "pronunciation": "/ˌpɜːsɪˈvɪərəns/",
+    "partOfSpeech": "noun",
+    "translation": "毅力，堅持",
+    "explanation": "Continued effort to do or achieve something despite difficulties, failure, or opposition.",
+    "examples": [
+      { "sentence": "Success requires perseverance.", "translation": "成功需要毅力。" },
+      { "sentence": "Her perseverance paid off in the end.", "translation": "她的堅持最終得到了回報。" }
+    ],
+    "level": "B1",
+    "tags": ["character", "motivation"]
+  },
+  {
+    "id": "word_009",
+    "word": "eloquent",
+    "pronunciation": "/ˈeləkwənt/",
+    "partOfSpeech": "adjective",
+    "translation": "雄辯的，流暢的",
+    "explanation": "Fluent or persuasive in speaking or writing.",
+    "examples": [
+      { "sentence": "He gave an eloquent speech.", "translation": "他發表了一篇雄辯的演講。" },
+      { "sentence": "She is an eloquent writer.", "translation": "她是一位文筆流暢的作家。" }
+    ],
+    "level": "B2",
+    "tags": ["communication", "language"]
+  },
+  {
+    "id": "word_010",
+    "word": "collaborate",
+    "pronunciation": "/kəˈlæbəreɪt/",
+    "partOfSpeech": "verb",
+    "translation": "合作",
+    "explanation": "Work jointly on an activity or project.",
+    "examples": [
+      { "sentence": "We need to collaborate on this project.", "translation": "我們需要在這個項目上合作。" },
+      { "sentence": "The teams collaborated effectively.", "translation": "團隊們有效地合作。" }
+    ],
+    "level": "B1",
+    "tags": ["work", "teamwork"]
+  },
+  {
+    "id": "word_011",
+    "word": "friend",
+    "pronunciation": "/frend/",
+    "partOfSpeech": "noun",
+    "translation": "朋友",
+    "explanation": "A person whom one knows and with whom one has a bond of mutual affection.",
+    "examples": [
+      { "sentence": "She is my best friend.", "translation": "她是我最好的朋友。" },
+      { "sentence": "I made many friends at school.", "translation": "我在學校交了很多朋友。" }
+    ],
+    "level": "A1",
+    "tags": ["social", "relationship"]
+  },
+  {
+    "id": "word_012",
+    "word": "restaurant",
+    "pronunciation": "/ˈrestərɒnt/",
+    "partOfSpeech": "noun",
+    "translation": "餐廳",
+    "explanation": "A place where people pay to sit and eat meals that are cooked and served on the premises.",
+    "examples": [
+      { "sentence": "Let's go to a restaurant for dinner.", "translation": "讓我們去餐廳吃晚飯。" },
+      { "sentence": "This restaurant has excellent food.", "translation": "這家餐廳的食物非常好。" }
+    ],
+    "level": "A1",
+    "tags": ["food", "place"]
+  }
+]

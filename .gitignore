@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+frontend/build/
+frontend/.env.local
+frontend/.env.production
+
+# Environment files (保留 .env 範本但忽略機密)
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Claude preview config (local only)
+.claude/

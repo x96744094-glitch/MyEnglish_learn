@@ -1,0 +1,107 @@
+[
+  {
+    "id": "grammar_001",
+    "title": "Simple Present Tense",
+    "level": "A1",
+    "description": "用來描述習慣性動作或事實",
+    "content": "The simple present tense is used to describe habits, unchanging situations, general truths, and fixed arrangements.\n\nFormula:\n- Affirmative: Subject + base verb (he/she/it + verb+s)\n- Negative: Subject + do/does + not + base verb\n- Question: Do/Does + Subject + base verb?",
+    "examples": [
+      { "sentence": "I eat breakfast every morning.", "translation": "我每天早上吃早餐。", "note": "習慣性動作" },
+      { "sentence": "She speaks English well.", "translation": "她英語說得很好。", "note": "一般事實" },
+      { "sentence": "The sun rises in the east.", "translation": "太陽從東方升起。", "note": "永恆真理" }
+    ],
+    "exercises": [
+      {
+        "question": "He __ (play) tennis on Sundays.",
+        "answer": "plays",
+        "explanation": "主詞是第三人稱單數 (He)，動詞要加 s"
+      },
+      {
+        "question": "They __ (not/live) in Tokyo.",
+        "answer": "don't live",
+        "explanation": "否定句用 don't/doesn't + 原形動詞"
+      }
+    ],
+    "tags": ["tense", "basic", "verb"]
+  },
+  {
+    "id": "grammar_002",
+    "title": "Present Continuous Tense",
+    "level": "A1",
+    "description": "用來描述正在進行中的動作",
+    "content": "The present continuous tense describes actions happening right now or temporary situations.\n\nFormula:\n- Affirmative: Subject + am/is/are + verb+ing\n- Negative: Subject + am/is/are + not + verb+ing\n- Question: Am/Is/Are + Subject + verb+ing?",
+    "examples": [
+      { "sentence": "I am studying English now.", "translation": "我現在正在學英語。", "note": "當下正在進行" },
+      { "sentence": "She is reading a book.", "translation": "她正在看書。", "note": "當下動作" },
+      { "sentence": "They are working from home this week.", "translation": "他們這週在家工作。", "note": "暫時狀況" }
+    ],
+    "exercises": [
+      {
+        "question": "Look! The children __ (play) in the garden.",
+        "answer": "are playing",
+        "explanation": "look! 表示當下動作，用現在進行式"
+      }
+    ],
+    "tags": ["tense", "basic", "verb"]
+  },
+  {
+    "id": "grammar_003",
+    "title": "Simple Past Tense",
+    "level": "A2",
+    "description": "用來描述過去發生的動作或狀態",
+    "content": "The simple past tense is used to describe completed actions in the past.\n\nFormula:\n- Regular verbs: add -ed (walk → walked)\n- Irregular verbs: change form (go → went, eat → ate)\n- Negative: Subject + did + not + base verb\n- Question: Did + Subject + base verb?",
+    "examples": [
+      { "sentence": "I visited Paris last year.", "translation": "我去年參觀了巴黎。", "note": "完成的動作" },
+      { "sentence": "She didn't come to the party.", "translation": "她沒有來參加派對。", "note": "否定句" },
+      { "sentence": "Did you finish your homework?", "translation": "你完成作業了嗎？", "note": "疑問句" }
+    ],
+    "exercises": [
+      {
+        "question": "Yesterday, I __ (go) to the supermarket.",
+        "answer": "went",
+        "explanation": "go 是不規則動詞，過去式為 went"
+      }
+    ],
+    "tags": ["tense", "past", "verb"]
+  },
+  {
+    "id": "grammar_004",
+    "title": "Present Perfect Tense",
+    "level": "B1",
+    "description": "用來描述過去發生但與現在相關的動作",
+    "content": "The present perfect tense connects the past with the present. It describes experiences, completed actions with present relevance, or actions that began in the past and continue.\n\nFormula:\n- Affirmative: Subject + have/has + past participle\n- Negative: Subject + have/has + not + past participle\n- Question: Have/Has + Subject + past participle?",
+    "examples": [
+      { "sentence": "I have visited Japan three times.", "translation": "我去過日本三次。", "note": "過去的經驗" },
+      { "sentence": "She has just finished the report.", "translation": "她剛剛完成了報告。", "note": "剛完成的動作" },
+      { "sentence": "They have lived here for ten years.", "translation": "他們已經在這裡住了十年。", "note": "持續到現在" }
+    ],
+    "exercises": [
+      {
+        "question": "I __ never __ (eat) sushi before.",
+        "answer": "have never eaten",
+        "explanation": "談論過去的經驗，用現在完成式"
+      }
+    ],
+    "tags": ["tense", "perfect", "verb"]
+  },
+  {
+    "id": "grammar_005",
+    "title": "Conditional Sentences (Type 1)",
+    "level": "B1",
+    "description": "真實條件句，描述真實或可能發生的情況",
+    "content": "Type 1 conditionals describe real or possible situations in the present or future.\n\nFormula: If + Simple Present, will + base verb\n\nUsed for:\n- Real possibilities in the future\n- General truths and habits",
+    "examples": [
+      { "sentence": "If it rains, we will stay home.", "translation": "如果下雨，我們將留在家裡。", "note": "未來可能發生的情況" },
+      { "sentence": "If you study hard, you will pass the exam.", "translation": "如果你努力學習，你將通過考試。", "note": "一般真理" },
+      { "sentence": "I will call you if I need help.", "translation": "如果我需要幫助，我會打電話給你。", "note": "條件倒裝" }
+    ],
+    "exercises": [
+      {
+        "question": "If she __ (study), she __ (pass) the test.",
+        "answer": "studies / will pass",
+        "explanation": "if 子句用現在式，主要子句用 will + 原形動詞"
+      }
+    ],
+    "tags": ["conditional", "grammar", "advanced"]
+  }
+]
