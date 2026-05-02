@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'https://myenglishlearn-production-2db8.up.railway.app/api',
-  timeout: 30000,
+  timeout: 60000,
 });
 
 // 自動重試一次（處理 Railway 冷啟動）
@@ -11,11 +11,10 @@ api.interceptors.response.use(
   async err => {
     const config = err.config;
     if (!config || config._retried) {
-      // 整理錯誤訊息
       const msg =
         err.code === 'ECONNABORTED' ? '連線逾時，伺服器可能正在啟動中，請稍後重試。' :
         !err.response ? '無法連線到伺服器，請確認網路或稍後再試。' :
-        err.response?.data?.error || `伺服器錯誤 (${err.response?.status})`;
+        err.response?.data?.error || err.response?.data?.message || `伺服器錯誤 (${err.response?.status})`;
       return Promise.reject(new Error(msg));
     }
     if (err.code === 'ECONNABORTED' || !err.response) {

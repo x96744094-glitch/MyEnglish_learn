@@ -49,8 +49,8 @@ if (!MONGODB_URI) {
   mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
+    family: 4,            // 強制 IPv4，避免 Railway IPv6 慢的問題
     bufferCommands: true,
-    // 查詢最多等 60 秒讓 MongoDB 連線完成
   });
 
   mongoose.connection.on('connected', () => console.log('✅ MongoDB 連線成功'));
