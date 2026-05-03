@@ -1,8 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { LEVEL_LABELS } from '../utils/constants';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navigation({ level, onLevelChange, apiOnline }) {
   const levels = ['A1', 'A2', 'B1', 'B2'];
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <nav className="navbar">
@@ -17,6 +25,7 @@ export default function Navigation({ level, onLevelChange, apiOnline }) {
         <li><NavLink to="/phrases">片語</NavLink></li>
         <li><NavLink to="/notebook">筆記本</NavLink></li>
         <li><NavLink to="/quiz">測驗</NavLink></li>
+        <li><NavLink to="/dictionary">📖 字典查詢</NavLink></li>
       </ul>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -36,6 +45,44 @@ export default function Navigation({ level, onLevelChange, apiOnline }) {
             </option>
           ))}
         </select>
+
+        {user ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ color: 'white', fontSize: '0.9rem', fontWeight: 500 }}>
+              👤 {user.username}
+            </span>
+            <button
+              onClick={handleLogout}
+              style={{
+                padding: '5px 12px',
+                background: 'rgba(255,255,255,0.15)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: 6,
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+              }}
+            >
+              登出
+            </button>
+          </div>
+        ) : (
+          <NavLink
+            to="/login"
+            style={{
+              padding: '5px 14px',
+              background: 'rgba(255,255,255,0.15)',
+              color: 'white',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: 6,
+              textDecoration: 'none',
+              fontSize: '0.9rem',
+              fontWeight: 500,
+            }}
+          >
+            🔐 登入
+          </NavLink>
+        )}
       </div>
     </nav>
   );

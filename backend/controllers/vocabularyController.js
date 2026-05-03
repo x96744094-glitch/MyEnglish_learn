@@ -65,3 +65,54 @@ exports.update = async (req, res) => {
     res.json(word);
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
+
+exports.lookup = async (req, res) => {
+  try {
+    const { word } = req.params;
+    if (!word) return res.status(400).json({ error: 'Word is required' });
+
+    // Search DB first (case-insensitive)
+    const existing = await Vocabulary.findOne({ word: { $regex: `^${word}$`, $options: 'i' } }).lean();
+    if (existing) {
+      return res.json({ source: 'database', ...existing });
+    }
+
+    // Fetch from dictionary API
+    const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`;
+    let apiData;
+    try {
+      const response = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
+      if (!response.ok) {
+        return res.status(404).json({ error: `Word "${word}" not found` });
+      }
+      apiData = await response.json();
+    } catch (fetchErr) {
+      return res.status(404).json({ error: `Word "${word}" not found and external lookup failed` });
+    }
+
+    // Parse API response
+    const entry = Array.isArray(apiData) ? apiData[0] : apiData;
+    const phonetic = entry.phonetic || (entry.phonetics && entry.phonetics.find(p => p.text)?.text) || '';
+    const meanings = entry.meanings || [];
+    const firstMeaning = meanings[0] || {};
+    const partOfSpeech = firstMeaning.partOfSpeech || '';
+    const definitions = firstMeaning.definitions || [];
+    const firstDef = definitions[0] || {};
+    const definition = firstDef.definition || '';
+    const example = firstDef.example || '';
+
+    // Save to MongoDB
+    const newWord = await Vocabulary.create({
+      word: entry.word || word,
+      pronunciation: phonetic,
+      partOfSpeech,
+      translation: definition,
+      explanation: definition,
+      examples: example ? [{ sentence: example, translation: '' }] : [],
+      level: 'B1',
+      tags: ['auto-added'],
+    });
+
+    return res.json({ source: 'web', ...newWord.toObject() });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+};

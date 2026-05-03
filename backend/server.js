@@ -6,6 +6,7 @@ const grammarRoutes = require('./routes/grammar');
 const phrasesRoutes = require('./routes/phrases');
 const quizRoutes = require('./routes/quiz');
 const progressRoutes = require('./routes/progress');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -45,6 +46,7 @@ app.get('/api/debug', async (req, res) => {
   }
 });
 
+app.use('/api/auth', authRoutes);
 app.use('/api/vocabulary', vocabularyRoutes);
 app.use('/api/grammar', grammarRoutes);
 app.use('/api/phrases', phrasesRoutes);

@@ -62,4 +62,23 @@ export const progress = {
   getNotebook: (userId) => api.get(`/progress/${userId}/notebook`).then(r => r.data),
 };
 
+export const dictionary = {
+  lookup: (word) => api.get(`/vocabulary/lookup/${encodeURIComponent(word)}`).then(r => r.data),
+};
+
+export const auth = {
+  register: (data) => api.post('/auth/register', data).then(r => r.data),
+  login: (data) => api.post('/auth/login', data).then(r => r.data),
+  getMe: () => api.get('/auth/me').then(r => r.data),
+};
+
+// Attach token to every request if present
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default api;
