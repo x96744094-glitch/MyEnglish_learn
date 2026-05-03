@@ -9,8 +9,14 @@ const progressRoutes = require('./routes/progress');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-// 清理環境變數（移除引號、空白、換行等雜訊）
-const MONGODB_URI = (process.env.MONGODB_URI || '').trim().replace(/^["']|["']$/g, '').replace(/\s/g, '');
+// 清理環境變數（移除引號、空白，並修正注音符號誤植）
+const MONGODB_URI = (process.env.MONGODB_URI || '')
+  .trim()
+  .replace(/^["']|["']$/g, '')
+  .replace(/\s/g, '')
+  .replace(/ㄦ/g, '-')   // 修正輸入法將 - 誤轉為 ㄦ
+  .replace(/－/g, '-')   // 修正全形連字號
+  .replace(/—/g, '-');   // 修正破折號
 const VERSION = 'v7';
 
 app.use(cors());
