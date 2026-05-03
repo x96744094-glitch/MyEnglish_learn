@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://myenglishlearn-production-2db8.up.railway.app/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://myenglishlearn-production.up.railway.app/api',
   timeout: 60000,
 });
 
