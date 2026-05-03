@@ -9,7 +9,8 @@ const progressRoutes = require('./routes/progress');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const MONGODB_URI = process.env.MONGODB_URI;
+// 清理環境變數（移除引號、空白、換行等雜訊）
+const MONGODB_URI = (process.env.MONGODB_URI || '').trim().replace(/^["']|["']$/g, '').replace(/\s/g, '');
 const VERSION = 'v7';
 
 app.use(cors());
@@ -55,6 +56,7 @@ if (!MONGODB_URI) {
   console.error('❌ 未設定 MONGODB_URI');
 } else {
   console.log('⏳ 正在連線 MongoDB...');
+  console.log('URI 前綴:', MONGODB_URI.substring(0, 20));
 
   mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 60000,
