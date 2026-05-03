@@ -26,9 +26,9 @@ export default function WordDetail({ userProgress }) {
   if (error) return <ErrorMessage message={error} />;
   if (!word) return null;
 
-  const learned = learnedWords.includes(word.id);
-  const inNb = isInNotebook(word.id);
-  const fav = isFavorite(word.id);
+  const learned = learnedWords.includes(word._id || word.id);
+  const inNb = isInNotebook(word._id || word.id);
+  const fav = isFavorite(word._id || word.id);
 
   return (
     <div style={{ maxWidth: 700, margin: '0 auto' }}>
@@ -56,14 +56,14 @@ export default function WordDetail({ userProgress }) {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <button onClick={() => toggleFav(word.id)} className="btn btn-secondary btn-sm">
+            <button onClick={() => toggleFav(word._id || word.id)} className="btn btn-secondary btn-sm">
               {fav ? '⭐ 已收藏' : '☆ 收藏'}
             </button>
-            <button onClick={() => toggleNotebook(word.id)} className="btn btn-secondary btn-sm">
+            <button onClick={() => toggleNotebook(word._id || word.id)} className="btn btn-secondary btn-sm">
               {inNb ? '📌 已加入筆記' : '📍 加入筆記'}
             </button>
             {!learned && (
-              <button onClick={() => markLearned(word.id)} className="btn btn-success btn-sm">
+              <button onClick={() => markLearned(word._id || word.id)} className="btn btn-success btn-sm">
                 ✅ 標記已學
               </button>
             )}

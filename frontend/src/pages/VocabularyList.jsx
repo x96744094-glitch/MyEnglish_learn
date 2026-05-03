@@ -86,12 +86,12 @@ export default function VocabularyList({ userProgress }) {
         <div className="card-grid">
           {words.map(word => (
             <WordCard
-              key={word.id}
+              key={word._id || word.id}
               word={word}
               onNotebook={toggleNotebook}
               onFavorite={toggleFav}
-              inNotebook={isInNotebook(word.id)}
-              isFav={isFavorite(word.id)}
+              inNotebook={isInNotebook(word._id || word.id)}
+              isFav={isFavorite(word._id || word.id)}
             />
           ))}
         </div>

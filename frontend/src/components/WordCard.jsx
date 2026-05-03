@@ -5,7 +5,7 @@ import SpeakButton from './SpeakButton';
 export default function WordCard({ word, onNotebook, onFavorite, inNotebook, isFav }) {
   return (
     <div className="word-card" style={{ position: 'relative' }}>
-      <Link to={`/vocabulary/${word.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+      <Link to={`/vocabulary/${word._id || word.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
           <span className="word-card-word">{word.word}</span>
           <span className={`level-chip level-${word.level}`}>{word.level}</span>
@@ -28,7 +28,7 @@ export default function WordCard({ word, onNotebook, onFavorite, inNotebook, isF
         <div style={{ display: 'flex', gap: 6 }}>
           {onNotebook && (
             <button
-              onClick={(e) => { e.preventDefault(); onNotebook(word.id); }}
+              onClick={(e) => { e.preventDefault(); onNotebook(word._id || word.id); }}
               title={inNotebook ? '從筆記本移除' : '加入筆記本'}
               style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', padding: '2px 4px' }}
             >
@@ -37,7 +37,7 @@ export default function WordCard({ word, onNotebook, onFavorite, inNotebook, isF
           )}
           {onFavorite && (
             <button
-              onClick={(e) => { e.preventDefault(); onFavorite(word.id); }}
+              onClick={(e) => { e.preventDefault(); onFavorite(word._id || word.id); }}
               title={isFav ? '取消收藏' : '收藏'}
               style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', padding: '2px 4px' }}
             >
