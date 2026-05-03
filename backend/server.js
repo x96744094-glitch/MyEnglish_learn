@@ -21,6 +21,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', version: VERSION, db: dbStatus, readyState: mongoose.connection.readyState, timestamp: new Date().toISOString() });
 });
 
+app.get('/api/debug', (req, res) => {
+  res.json({
+    version: VERSION,
+    hasMongoUri: !!process.env.MONGODB_URI,
+    uriPrefix: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 25) + '...' : 'NOT SET',
+    readyState: mongoose.connection.readyState,
+    // 0=disconnected,1=connected,2=connecting,3=disconnecting
+  });
+});
+
 app.use('/api/vocabulary', vocabularyRoutes);
 app.use('/api/grammar', grammarRoutes);
 app.use('/api/phrases', phrasesRoutes);
