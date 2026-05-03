@@ -97,10 +97,15 @@ exports.lookup = async (req, res) => {
     const firstDef = allDefs[0] || {};
     const definition = firstDef.definition || '';
 
-    // 找例句（優先有例句的定義）
+    // 找例句（從所有 meanings/definitions 收集，最多 2 句）
     const examples = [];
-    for (const d of allDefs) {
-      if (d.example) { examples.push({ sentence: d.example, translation: '' }); break; }
+    for (const m of meanings) {
+      for (const d of (m.definitions || [])) {
+        if (d.example && examples.length < 2) {
+          examples.push({ sentence: d.example, translation: '' });
+        }
+      }
+      if (examples.length >= 2) break;
     }
 
     // 3. 用 MyMemory 免費 API 翻譯成中文
