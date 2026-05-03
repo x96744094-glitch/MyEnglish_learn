@@ -22,14 +22,21 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', version: VERSION, db: dbStatus, readyState: mongoose.connection.readyState, timestamp: new Date().toISOString() });
 });
 
-app.get('/api/debug', (req, res) => {
-  res.json({
-    version: VERSION,
-    hasMongoUri: !!process.env.MONGODB_URI,
-    uriPrefix: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 25) + '...' : 'NOT SET',
-    readyState: mongoose.connection.readyState,
-    // 0=disconnected,1=connected,2=connecting,3=disconnecting
-  });
+app.get('/api/debug', async (req, res) => {
+  const Vocabulary = require('./models/Vocabulary');
+  try {
+    const count = await Vocabulary.countDocuments();
+    res.json({
+      version: VERSION,
+      hasMongoUri: !!MONGODB_URI,
+      uriPrefix: MONGODB_URI ? MONGODB_URI.substring(0, 35) + '...' : 'NOT SET',
+      readyState: mongoose.connection.readyState,
+      dbName: mongoose.connection.db?.databaseName || 'unknown',
+      vocabularyCount: count,
+    });
+  } catch(err) {
+    res.json({ version: VERSION, hasMongoUri: !!MONGODB_URI, readyState: mongoose.connection.readyState, error: err.message });
+  }
 });
 
 app.use('/api/vocabulary', vocabularyRoutes);
