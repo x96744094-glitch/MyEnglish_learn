@@ -13,6 +13,7 @@ import DictionaryPage from './pages/DictionaryPage';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './context/AuthContext';
 import { useUserProgress } from './hooks/useUserProgress';
+import InstallPrompt from './components/InstallPrompt';
 import { checkHealth } from './services/api';
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
             英文學習平台 v1.0.0
           </footer>
         </div>
+        <InstallPrompt />
       </BrowserRouter>
     </AuthProvider>
   );

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144">
+  <!-- Background -->
+  <rect width="144" height="144" rx="28.8" fill="#4F46E5"/>
+  <!-- Book shape -->
+  <g transform="translate(21.599999999999998, 25.919999999999998)">
+    <!-- Book body -->
+    <rect x="0" y="0" width="47.52" height="86.39999999999999" rx="5.76" fill="#ffffff" opacity="0.9"/>
+    <rect x="53.28" y="0" width="47.52" height="86.39999999999999" rx="5.76" fill="#ffffff" opacity="0.9"/>
+    <!-- Book spine -->
+    <rect x="45.36" y="0" width="10.080000000000002" height="86.39999999999999" fill="#C7D2FE"/>
+    <!-- Lines on left page -->
+    <line x1="8.64" y1="21.599999999999998" x2="38.88" y2="21.599999999999998" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="8.64" y1="36" x2="38.88" y2="36" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="8.64" y1="50.4" x2="38.88" y2="50.4" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="8.64" y1="64.8" x2="28.8" y2="64.8" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <!-- Lines on right page -->
+    <line x1="61.92" y1="21.599999999999998" x2="92.16" y2="21.599999999999998" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="61.92" y1="36" x2="92.16" y2="36" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="61.92" y1="50.4" x2="92.16" y2="50.4" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="61.92" y1="64.8" x2="82.08" y2="64.8" stroke="#818CF8" stroke-width="3.6" stroke-linecap="round"/>
+  </g>
+  <!-- "E" letter overlay -->
+  <text x="72" y="126.72" font-family="Arial, sans-serif" font-size="23.04" font-weight="bold" fill="#E0E7FF" text-anchor="middle">ENGLISH</text>
+</svg>

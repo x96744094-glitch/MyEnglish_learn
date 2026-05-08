@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <!-- Background -->
+  <rect width="96" height="96" rx="19.200000000000003" fill="#4F46E5"/>
+  <!-- Book shape -->
+  <g transform="translate(14.399999999999999, 17.28)">
+    <!-- Book body -->
+    <rect x="0" y="0" width="31.68" height="57.599999999999994" rx="3.84" fill="#ffffff" opacity="0.9"/>
+    <rect x="35.519999999999996" y="0" width="31.68" height="57.599999999999994" rx="3.84" fill="#ffffff" opacity="0.9"/>
+    <!-- Book spine -->
+    <rect x="30.240000000000002" y="0" width="6.720000000000001" height="57.599999999999994" fill="#C7D2FE"/>
+    <!-- Lines on left page -->
+    <line x1="5.76" y1="14.399999999999999" x2="25.92" y2="14.399999999999999" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="5.76" y1="24" x2="25.92" y2="24" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="5.76" y1="33.599999999999994" x2="25.92" y2="33.599999999999994" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="5.76" y1="43.2" x2="19.200000000000003" y2="43.2" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <!-- Lines on right page -->
+    <line x1="41.28" y1="14.399999999999999" x2="61.44" y2="14.399999999999999" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="41.28" y1="24" x2="61.44" y2="24" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="41.28" y1="33.599999999999994" x2="61.44" y2="33.599999999999994" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+    <line x1="41.28" y1="43.2" x2="54.72" y2="43.2" stroke="#818CF8" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+  </g>
+  <!-- "E" letter overlay -->
+  <text x="48" y="84.48" font-family="Arial, sans-serif" font-size="15.36" font-weight="bold" fill="#E0E7FF" text-anchor="middle">ENGLISH</text>
+</svg>
